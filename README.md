@@ -21,14 +21,14 @@ Controles:
 
 ## Objetivo
 
-O aluno finaliza a loja criada no Lovable com:
+O aluno finaliza a loja criada no Lovable com uma solução coerente com o plano gratuito:
 
-- pagamento seguro;
-- link de pagamento ou QR Code;
-- status de pagamento;
+- Pix/QR Code como pagamento principal;
+- Pix Copia e Cola;
+- instrução de envio de comprovante;
+- status apenas como teoria operacional;
 - modelo de entrega;
 - frete ou acesso digital;
 - rastreamento;
 - pós-venda;
 - Prompt Mestre final.
-

@@ -4,13 +4,13 @@ Tema: pagamento online seguro, links de pagamento, QR Code, plataformas como Pag
 
 ## Objetivo da aula
 
-Completar o projeto criado no Lovable. A loja já tem produto, oferta e visual; agora precisa mostrar como o cliente paga, recebe e é atendido depois da compra.
+Completar o projeto criado no Lovable com uma solução possível no plano gratuito. A loja já tem produto, oferta e visual; agora precisa mostrar como o cliente paga por Pix/QR Code, envia comprovante, recebe e é atendido depois da compra.
 
 ## Tempo sugerido
 
 - Revisão do projeto Lovable: 10 min.
-- Pagamento seguro: 20 min.
-- Plataformas e formatos: 20 min.
+- Pagamento seguro e Pix/QR Code: 25 min.
+- Peculiaridades dos meios de pagamento: 15 min.
 - Entrega e pós-venda: 25 min.
 - Atividade final no Lovable: 35 min.
 
@@ -31,31 +31,34 @@ Pergunta:
 Explique de forma direta:
 
 - O app do aluno não deve coletar cartão diretamente.
-- O pagamento real deve acontecer em ambiente de plataforma segura.
-- O Lovable pode mostrar o fluxo, orientar o cliente e simular status.
+- Não teremos backend nesta aula.
+- O caminho principal será Pix/QR Code para economizar créditos e manter a prática viável.
+- O Lovable deve mostrar o fluxo, orientar o cliente e explicar a confirmação manual.
 
 Termos essenciais:
 
 - Checkout: etapa de finalizar compra.
-- Link de pagamento: cobrança por URL.
-- QR Code: acesso rápido ao Pix ou checkout.
-- Status: pendente, aprovado, recusado, expirado, reembolsado.
+- Pix QR Code: pagamento rápido e barato, mas sem backend exige conferência manual.
+- Pix Copia e Cola: útil quando o cliente está no celular e não consegue escanear a própria tela.
+- Link de pagamento: cobrança por URL, mais formal, geralmente com taxas.
+- Checkout/cartão: mais conveniência e parcelamento, mas maior custo e risco de chargeback.
+- Status: nesta aula é teoria operacional, não automação.
 
 Frase útil:
 
-"No Lovable desenhamos a experiência. Quem processa o dinheiro é a plataforma de pagamento."
+"No Lovable desenhamos a experiência. Nesta versão gratuita, o Pix e o comprovante resolvem a prática sem fingir integração."
 
 ### 3. Plataformas
 
 Explique sem alongar:
 
-- PagBank/PagSeguro: referência brasileira para checkout, link e meios populares.
+- PagBank/PagSeguro: referência brasileira para link, checkout e meios populares.
 - Mercado Pago: muito usado com Pix, QR Code, plugins e checkout.
-- Stripe: forte em links, checkout, produtos digitais e assinaturas.
+- Stripe: forte em Payment Links, checkout e assinaturas.
 
 Ponto-chave:
 
-"Não existe melhor plataforma para todo mundo. Existe a melhor escolha para o produto, canal e nível de automação."
+"Para a aula, usamos Pix/QR como solução viável. As plataformas entram como próximos níveis quando a loja precisar de checkout, cartão, parcelamento, links reais ou automação."
 
 ### 4. Entrega
 
@@ -81,23 +84,22 @@ Pontos essenciais:
 
 ## Atividade final
 
-Cada aluno deve criar no Lovable um módulo final de pedido com:
+Cada aluno deve criar no Lovable uma central de pedido sem backend com:
 
 1. resumo do pedido;
-2. escolha de pagamento;
-3. link externo ou QR Code ilustrativo;
-4. status de pagamento;
-5. entrega ou acesso digital;
-6. rastreamento;
-7. troca, suporte e avaliação;
+2. Pix QR Code ilustrativo;
+3. Pix Copia e Cola;
+4. instrução para enviar comprovante;
+5. status explicados apenas como teoria;
+6. entrega ou acesso digital;
+7. suporte, troca e avaliação;
 8. Prompt Mestre final.
 
 ## Critérios de avaliação
 
-- A escolha de pagamento faz sentido para o produto.
+- O Pix/QR Code está bem explicado para o cliente.
 - O projeto não coleta cartão diretamente.
-- O status de pagamento indica próxima ação.
+- O aluno deixa claro que status não é automático nesta versão.
 - A entrega é compatível com o tipo de produto.
 - O pós-venda está claro.
 - O prompt final é específico e aplicável no Lovable.
-
