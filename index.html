@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aulas 6 e 7 | Pagamentos, Entrega e Pós-venda</title>
+  <style>
+    :root {
+      --bg: #f5f2ea;
+      --ink: #16202a;
+      --muted: #596575;
+      --line: #d8d0c1;
+      --panel: #fffdf8;
+      --green: #0f6b5f;
+      --blue: #2459a6;
+      --gold: #b87412;
+      --red: #ad3f3f;
+      --soft-green: #e4f2ee;
+      --soft-blue: #e8effb;
+      --soft-gold: #fbefda;
+      --soft-red: #f8e6e3;
+      --shadow: 0 16px 42px rgba(22, 32, 42, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(22, 32, 42, .045) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(22, 32, 42, .045) 1px, transparent 1px),
+        var(--bg);
+      background-size: 34px 34px;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      padding: 2.05rem 2.75rem 2.35rem;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: .78rem;
+      overflow: hidden;
+    }
+
+    .slide.active { display: grid; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: .72rem;
+      margin-bottom: .35rem;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      max-width: 1060px;
+      font-size: clamp(2.35rem, 4.7vw, 5rem);
+      line-height: .95;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      max-width: 1030px;
+      font-size: clamp(1.72rem, 2.78vw, 3.05rem);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    h3 { font-size: .98rem; line-height: 1.16; }
+
+    .subtitle {
+      max-width: 920px;
+      color: #3c4653;
+      font-size: clamp(.94rem, 1.08vw, 1.16rem);
+      line-height: 1.31;
+      margin-top: .62rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .46rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .9);
+      border-radius: 999px;
+      padding: .42rem .66rem;
+      font-weight: 800;
+      white-space: nowrap;
+      color: #344054;
+      font-size: .84rem;
+    }
+
+    .badge::before {
+      content: "";
+      width: .52rem;
+      height: .52rem;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    .content {
+      align-self: center;
+      min-height: 0;
+      max-height: 100%;
+      overflow: hidden;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .68rem;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+    .card {
+      min-height: 104px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .94);
+      box-shadow: 0 10px 24px rgba(22, 32, 42, .07);
+      padding: .72rem;
+    }
+
+    .card strong {
+      display: block;
+      font-size: .92rem;
+      margin-bottom: .35rem;
+    }
+
+    .card p, li {
+      color: #465160;
+      font-size: .8rem;
+      line-height: 1.23;
+    }
+
+    ul, ol { margin: .42rem 0 0; padding-left: .96rem; }
+    li + li { margin-top: .22rem; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr .86fr;
+      gap: .8rem;
+      align-items: stretch;
+    }
+
+    .phone {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      min-height: 310px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      overflow: hidden;
+    }
+
+    .phone-screen {
+      padding: .86rem;
+      background: linear-gradient(135deg, var(--soft-blue), var(--soft-green));
+      display: grid;
+      gap: .5rem;
+      align-content: center;
+    }
+
+    .qr {
+      width: 142px;
+      height: 142px;
+      background:
+        linear-gradient(90deg, var(--ink) 12px, transparent 12px 24px, var(--ink) 24px 36px, transparent 36px 48px),
+        linear-gradient(0deg, var(--ink) 12px, transparent 12px 24px, var(--ink) 24px 36px, transparent 36px 48px),
+        #fff;
+      background-size: 48px 48px;
+      border: 10px solid #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(22,32,42,.18);
+    }
+
+    .checkout {
+      padding: .9rem;
+      display: grid;
+      align-content: center;
+      gap: .62rem;
+    }
+
+    .pay-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: .45rem;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: .5rem;
+      background: rgba(255,253,248,.9);
+    }
+
+    .icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 8px;
+      background: var(--soft-green);
+      border: 1px solid var(--line);
+    }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: .36rem; margin-top: .54rem; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: .24rem .52rem;
+      background: rgba(255,255,255,.7);
+      font-size: .72rem;
+      color: #253044;
+      font-weight: 750;
+    }
+
+    .visual-flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: .54rem;
+      align-items: stretch;
+    }
+
+    .node {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .95);
+      padding: .65rem .58rem;
+      min-height: 186px;
+      display: grid;
+      grid-template-rows: auto 72px auto auto;
+      gap: .28rem;
+    }
+
+    .node::after {
+      content: "";
+      position: absolute;
+      right: -.43rem;
+      top: 50%;
+      width: .78rem;
+      height: .78rem;
+      border-top: 2px solid var(--green);
+      border-right: 2px solid var(--green);
+      transform: translateY(-50%) rotate(45deg);
+      background: var(--bg);
+      z-index: 2;
+    }
+
+    .node:last-child::after { display: none; }
+    .node strong { font-size: .9rem; }
+    .node p { color: #465160; font-size: .76rem; line-height: 1.18; }
+    .keyword { color: var(--green); font-weight: 900; text-transform: uppercase; font-size: .68rem; }
+
+    .sketch {
+      width: 100%;
+      height: 72px;
+      stroke: var(--ink);
+      stroke-width: 4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .fill-blue { fill: var(--soft-blue); }
+    .fill-green { fill: var(--soft-green); }
+    .fill-gold { fill: var(--soft-gold); }
+    .fill-red { fill: var(--soft-red); }
+
+    .compare {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .74rem;
+    }
+
+    .compare > div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,253,248,.95);
+      padding: .82rem;
+      min-height: 250px;
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: .72fr 1.28fr;
+      gap: .72rem;
+      align-items: stretch;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,253,248,.96);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: .76rem;
+      box-shadow: 0 10px 24px rgba(22, 32, 42, .06);
+    }
+
+    .table th {
+      text-align: left;
+      background: #efe8da;
+      color: #253044;
+      font-size: .72rem;
+      padding: .46rem .52rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .table td {
+      padding: .44rem .52rem;
+      border-bottom: 1px solid rgba(216,208,194,.75);
+      color: #465160;
+      line-height: 1.18;
+      vertical-align: top;
+    }
+
+    .table tr:last-child td { border-bottom: none; }
+
+    .formula-box {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #16202a;
+      color: #fffdf8;
+      padding: .86rem;
+      font-size: clamp(.88rem, 1.28vw, 1.28rem);
+      line-height: 1.32;
+      font-weight: 850;
+      white-space: pre-line;
+      min-height: 170px;
+      display: flex;
+      align-items: center;
+    }
+
+    .prompt-card {
+      background: #16202a;
+      color: #fffdf8;
+      border-radius: 8px;
+      padding: .74rem;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .7rem;
+      line-height: 1.2;
+      white-space: pre-line;
+      overflow: hidden;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr 360px auto;
+      gap: 1rem;
+      align-items: center;
+      color: #5f6b7a;
+      font-size: .74rem;
+    }
+
+    .progress {
+      height: .32rem;
+      border-radius: 999px;
+      background: rgba(22, 32, 42, .12);
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: var(--green);
+      transition: width .2s ease;
+    }
+
+    .controls {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      display: flex;
+      gap: .45rem;
+      z-index: 10;
+    }
+
+    button {
+      width: 2.55rem;
+      height: 2.55rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,253,248,.95);
+      color: var(--ink);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      body { overflow: auto; }
+      .deck { height: auto; min-height: 100vh; }
+      .slide { min-height: 100vh; height: auto; padding: 2rem 1rem 5rem; }
+      header { flex-direction: column; }
+      .grid, .grid.two, .grid.four, .grid.five, .hero, .phone, .visual-flow, .compare, .matrix {
+        grid-template-columns: 1fr;
+      }
+      .node::after { display: none; }
+      .content { overflow: visible; }
+      .controls { left: 1rem; right: auto; }
+    }
+
+    @media print {
+      body { background: #fff; overflow: visible; }
+      .deck { height: auto; }
+      .slide { display: grid !important; page-break-after: always; }
+      .controls { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck">
+    <section class="slide active">
+      <header>
+        <div>
+          <div class="eyebrow">E-commerce | Aulas 6 e 7</div>
+          <h1>Pagamento e entrega fecham a venda.</h1>
+          <p class="subtitle">A loja criada no Lovable agora ganha uma camada de checkout seguro, QR Code, link de pagamento, logística, rastreamento e pós-venda.</p>
+        </div>
+        <span class="badge">Projeto final</span>
+      </header>
+      <div class="content hero">
+        <div class="phone">
+          <div class="phone-screen"><div class="qr"></div><span class="pill">Pix QR Code</span></div>
+          <div class="checkout">
+            <div class="pay-row"><span class="icon"></span><div><strong>Pedido confirmado</strong><p>Produto, valor, pagamento e entrega conectados.</p></div><span class="pill">seguro</span></div>
+            <div class="pay-row"><span class="icon"></span><div><strong>Link de pagamento</strong><p>Checkout hospedado por uma plataforma confiável.</p></div><span class="pill">externo</span></div>
+            <div class="pay-row"><span class="icon"></span><div><strong>Rastreamento</strong><p>O cliente acompanha o pós-compra.</p></div><span class="pill">status</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <strong>Meta da aula</strong>
+          <p>Transformar a loja em um fluxo completo: cliente escolhe, paga com segurança, recebe confirmação, acompanha entrega e tem suporte depois da compra.</p>
+          <div class="pill-row">
+            <span class="pill">checkout</span>
+            <span class="pill">QR Code</span>
+            <span class="pill">frete</span>
+            <span class="pill">pós-venda</span>
+          </div>
+        </div>
+      </div>
+      <footer class="footer"><span>Da vitrine ao pedido entregue</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Retomada do projeto</div>
+          <h2>A loja já tem oferta, marketplace e gestão. Agora falta a etapa crítica: receber e entregar.</h2>
+        </div>
+        <span class="badge">Continuidade</span>
+      </header>
+      <div class="content compare">
+        <div>
+          <h3>O projeto já deveria ter</h3>
+          <ul>
+            <li>Produto e público definidos.</li>
+            <li>Página com benefício e CTA.</li>
+            <li>Kit marketplace com título, fotos e descrição.</li>
+            <li>Preço com noção de margem.</li>
+            <li>Status e métricas comerciais.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Agora será acrescentado</h3>
+          <ul>
+            <li>Escolha do meio de pagamento.</li>
+            <li>Checkout seguro ou link externo.</li>
+            <li>Status de pagamento.</li>
+            <li>Modelo de entrega física ou digital.</li>
+            <li>Rastreamento, troca e pós-venda.</li>
+          </ul>
+        </div>
+      </div>
+      <footer class="footer"><span>Sem pagamento e entrega, a loja ainda é promessa</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Vocabulário de pagamento</div>
+          <h2>Termos de pagamento precisam virar escolhas de projeto.</h2>
+        </div>
+        <span class="badge">Base técnica</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Checkout</strong><p>Tela ou fluxo onde o cliente informa dados, escolhe pagamento e finaliza a compra.</p></div>
+        <div class="card"><strong>Link de pagamento</strong><p>URL que leva o cliente a uma página de pagamento hospedada pela plataforma.</p></div>
+        <div class="card"><strong>QR Code</strong><p>Código escaneável que direciona para pagamento, geralmente Pix ou checkout.</p></div>
+        <div class="card"><strong>PSP</strong><p>Provedor de pagamento: empresa que processa transações, como PagBank, Mercado Pago ou Stripe.</p></div>
+        <div class="card"><strong>Webhook</strong><p>Aviso automático enviado ao sistema quando o pagamento muda de status.</p></div>
+        <div class="card"><strong>Conciliação</strong><p>Conferir se pedido, pagamento, taxa e repasse batem corretamente.</p></div>
+        <div class="card"><strong>Chargeback</strong><p>Contestação de pagamento, comum em cartão, que pode virar perda para o vendedor.</p></div>
+        <div class="card"><strong>Reembolso</strong><p>Devolução total ou parcial do valor, seguindo política da loja e regras da plataforma.</p></div>
+      </div>
+      <footer class="footer"><span>O aluno não precisa decorar; precisa saber o que cada termo muda na operação</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Regra de segurança</div>
+          <h2>Projeto iniciante não coleta cartão direto. Usa checkout seguro de plataforma.</h2>
+        </div>
+        <span class="badge">Segurança</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Não armazenar cartão</strong><p>Dados sensíveis devem ficar com o provedor de pagamento, não no projeto do aluno.</p></div>
+        <div class="card"><strong>HTTPS e domínio confiável</strong><p>O cliente precisa perceber que está em ambiente legítimo e protegido.</p></div>
+        <div class="card"><strong>Confirmação de status</strong><p>Pedido só deve avançar depois de pagamento aprovado ou confirmado.</p></div>
+        <div class="card"><strong>Políticas claras</strong><p>Troca, reembolso, prazo e contato reduzem medo e conflito no pós-venda.</p></div>
+      </div>
+      <footer class="footer"><span>Segurança também é experiência: o cliente precisa confiar no caminho</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Escada de maturidade</div>
+          <h2>Nem toda loja precisa começar com integração complexa.</h2>
+        </div>
+        <span class="badge">Escolha</span>
+      </header>
+      <div class="content visual-flow">
+        <div class="node"><span class="keyword">1</span><svg class="sketch" viewBox="0 0 140 90"><rect class="fill-gold" x="30" y="24" width="80" height="46" rx="8"/><path d="M45 42h50M45 56h32"/></svg><strong>Pix manual</strong><p>Simples, mas exige conferência manual.</p></div>
+        <div class="node"><span class="keyword">2</span><svg class="sketch" viewBox="0 0 140 90"><path class="fill-green" d="M34 24h72v48H34z"/><path d="M50 40h40M50 56h24"/></svg><strong>Link</strong><p>Checkout externo, rápido para vender.</p></div>
+        <div class="node"><span class="keyword">3</span><svg class="sketch" viewBox="0 0 140 90"><path class="fill-blue" d="M42 22h56v56H42z"/><path d="M54 34h32M54 50h32M54 66h18"/></svg><strong>QR Code</strong><p>Ótimo para Pix e venda presencial.</p></div>
+        <div class="node"><span class="keyword">4</span><svg class="sketch" viewBox="0 0 140 90"><path class="fill-red" d="M28 30h84v42H28z"/><path d="M42 48h56M42 60h36"/></svg><strong>Plugin</strong><p>Integra loja pronta sem programar muito.</p></div>
+        <div class="node"><span class="keyword">5</span><svg class="sketch" viewBox="0 0 140 90"><circle class="fill-green" cx="50" cy="45" r="20"/><circle class="fill-blue" cx="92" cy="45" r="20"/><path d="M70 45h2"/></svg><strong>API</strong><p>Status, webhooks e automação avançada.</p></div>
+      </div>
+      <footer class="footer"><span>Maturidade é escolher o nível certo para o momento do negócio</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Link, QR ou checkout</div>
+          <h2>Cada formato resolve um tipo de venda.</h2>
+        </div>
+        <span class="badge">Comparação</span>
+      </header>
+      <div class="content">
+        <table class="table">
+          <thead><tr><th>Formato</th><th>Quando usar</th><th>Ponto forte</th><th>Cuidado</th></tr></thead>
+          <tbody>
+            <tr><td>Link de pagamento</td><td>WhatsApp, Instagram, orçamento, produto único</td><td>Rápido e hospedado pela plataforma</td><td>Conferir valor, descrição e expiração</td></tr>
+            <tr><td>QR Code</td><td>Pix, evento, balcão, embalagem, cartaz</td><td>Pagamento rápido no celular</td><td>Evitar QR genérico sem identificação do pedido</td></tr>
+            <tr><td>Checkout hospedado</td><td>Loja com carrinho ou catálogo</td><td>Mais completo e confiável</td><td>Configurar retorno e status corretamente</td></tr>
+            <tr><td>Checkout API</td><td>Projeto com backend e automações</td><td>Controle de status e integração</td><td>Exige credenciais, testes e segurança</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="footer"><span>O melhor pagamento é o que reduz atrito sem aumentar risco</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">PagBank / PagSeguro</div>
+          <h2>Checkout e link de pagamento permitem cobrar sem expor dados sensíveis na loja.</h2>
+        </div>
+        <span class="badge">Brasil</span>
+      </header>
+      <div class="content matrix">
+        <div class="card">
+          <strong>Ideia central</strong>
+          <p>A loja envia o cliente para uma página segura do PagBank, com meios como cartão, Pix, boleto e carteiras, conforme configuração.</p>
+        </div>
+        <table class="table">
+          <thead><tr><th>Etapa</th><th>O que acontece</th><th>Impacto no Lovable</th></tr></thead>
+          <tbody>
+            <tr><td>Pedido</td><td>Produto, valor, cliente e entrega são definidos</td><td>Gerar resumo antes do pagamento</td></tr>
+            <tr><td>Checkout/link</td><td>A plataforma fornece link de pagamento</td><td>Botão externo de pagamento seguro</td></tr>
+            <tr><td>Pagamento</td><td>Cliente escolhe o meio disponível</td><td>Explicar que a transação ocorre fora do app</td></tr>
+            <tr><td>Status</td><td>Pagamento aprovado, recusado, expirado ou reembolsado</td><td>Atualizar painel de pedidos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="footer"><span>Para aula: simular fluxo e deixar claro onde a plataforma entra</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Mercado Pago</div>
+          <h2>Link, Pix, QR Code, plugins e APIs atendem níveis diferentes de operação.</h2>
+        </div>
+        <span class="badge">Brasil</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Conta e credenciais</strong><p>A conta recebe pagamentos e dá acesso às configurações de integração.</p></div>
+        <div class="card"><strong>Plugin</strong><p>Para lojas prontas, reduz esforço técnico e acelera configuração.</p></div>
+        <div class="card"><strong>Pix com QR</strong><p>Permite pagamento instantâneo com QR Code ou Pix Copia e Cola.</p></div>
+        <div class="card"><strong>QR integrado</strong><p>Pode ter QR estático, dinâmico ou híbrido, com notificações de status.</p></div>
+      </div>
+      <footer class="footer"><span>O aluno deve escolher solução conforme canal, volume e necessidade de automação</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Stripe</div>
+          <h2>Payment Links e Checkout ajudam a vender com página de pagamento hospedada.</h2>
+        </div>
+        <span class="badge">Global</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Payment Links</strong><p>Links compartilháveis para pagamento sem criar checkout do zero.</p></div>
+        <div class="card"><strong>QR Code</strong><p>O link pode virar QR Code para cartaz, embalagem ou atendimento.</p></div>
+        <div class="card"><strong>Checkout</strong><p>Página de pagamento pré-construída, com experiência mais completa.</p></div>
+        <div class="card"><strong>Webhooks</strong><p>Permitem atualizar status quando o pagamento muda no Stripe.</p></div>
+      </div>
+      <footer class="footer"><span>Em projeto didático, use o conceito e simule a integração com segurança</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Matriz de decisão</div>
+          <h2>O meio de pagamento deve combinar com produto, canal e risco.</h2>
+        </div>
+        <span class="badge">Escolha</span>
+      </header>
+      <div class="content">
+        <table class="table">
+          <thead><tr><th>Cenário</th><th>Boa escolha inicial</th><th>Por quê</th><th>Próximo nível</th></tr></thead>
+          <tbody>
+            <tr><td>Venda pelo WhatsApp</td><td>Link de pagamento</td><td>Rápido, claro e seguro para pedido individual</td><td>Status automático via plataforma</td></tr>
+            <tr><td>Produto digital simples</td><td>Checkout hospedado</td><td>Confirma pagamento antes de liberar acesso</td><td>Entrega automática por e-mail</td></tr>
+            <tr><td>Loja com catálogo</td><td>Plugin ou checkout externo</td><td>Menos risco técnico e melhor experiência</td><td>API com webhooks</td></tr>
+            <tr><td>Venda presencial</td><td>QR Code Pix</td><td>Pagamento rápido no celular</td><td>QR dinâmico por pedido</td></tr>
+            <tr><td>Assinatura</td><td>Checkout recorrente</td><td>Cobrança periódica controlada</td><td>Área de cliente</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="footer"><span>Ferramenta boa é a que resolve o contexto certo</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Lovable e pagamento</div>
+          <h2>No projeto final, o Lovable mostra o fluxo e direciona para pagamento seguro.</h2>
+        </div>
+        <span class="badge">Prática</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Resumo do pedido</strong><p>Produto, quantidade, variação, valor, frete e prazo.</p></div>
+        <div class="card"><strong>Escolha do método</strong><p>Pix QR, link de pagamento, cartão via checkout ou boleto.</p></div>
+        <div class="card"><strong>Botão seguro</strong><p>Redireciona para página hospedada pela plataforma escolhida.</p></div>
+        <div class="card"><strong>Status simulado</strong><p>Aprovado, pendente, recusado, expirado, reembolsado.</p></div>
+      </div>
+      <footer class="footer"><span>O aluno aprende arquitetura sem fingir que criou um processador de pagamento</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Status de pagamento</div>
+          <h2>Pagamento aprovado é gatilho para separar, entregar ou liberar acesso.</h2>
+        </div>
+        <span class="badge">Operação</span>
+      </header>
+      <div class="content">
+        <table class="table">
+          <thead><tr><th>Status</th><th>Significado</th><th>Próxima ação</th><th>Mensagem ao cliente</th></tr></thead>
+          <tbody>
+            <tr><td>Pendente</td><td>Cliente ainda não concluiu</td><td>Lembrar ou orientar pagamento</td><td>Seu pedido está reservado por tempo limitado.</td></tr>
+            <tr><td>Aprovado</td><td>Pagamento confirmado</td><td>Gerar entrega ou liberar digital</td><td>Pagamento aprovado. Vamos preparar seu pedido.</td></tr>
+            <tr><td>Recusado</td><td>Pagamento não foi aceito</td><td>Oferecer nova tentativa ou outro meio</td><td>Não conseguimos confirmar. Tente outro método.</td></tr>
+            <tr><td>Expirado</td><td>Link ou QR passou do prazo</td><td>Gerar novo link ou cancelar reserva</td><td>O prazo expirou. Solicite uma nova cobrança.</td></tr>
+            <tr><td>Reembolsado</td><td>Valor devolvido</td><td>Registrar motivo e encerrar pedido</td><td>O reembolso foi solicitado ou concluído.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="footer"><span>Status reduz confusão e evita entrega sem pagamento confirmado</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Aula 7 | Entrega</div>
+          <h2>Entrega é parte da promessa de venda, não detalhe depois do pagamento.</h2>
+        </div>
+        <span class="badge">Logística</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Produto físico</strong><p>Precisa de embalagem, frete, prazo, rastreio, troca e devolução.</p></div>
+        <div class="card"><strong>Produto digital</strong><p>Precisa de acesso, link, e-mail, licença, arquivo ou área do cliente.</p></div>
+        <div class="card"><strong>Serviço</strong><p>Precisa de agendamento, confirmação, preparação e política de remarcação.</p></div>
+        <div class="card"><strong>Assinatura</strong><p>Precisa de cobrança recorrente, acesso contínuo e cancelamento claro.</p></div>
+      </div>
+      <footer class="footer"><span>O tipo de produto define o pós-pagamento</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Modelos de entrega física</div>
+          <h2>Frete é estratégia: custo, prazo, rastreio e experiência competem juntos.</h2>
+        </div>
+        <span class="badge">Físico</span>
+      </header>
+      <div class="content">
+        <table class="table">
+          <thead><tr><th>Modelo</th><th>Quando usar</th><th>Ponto forte</th><th>Cuidado</th></tr></thead>
+          <tbody>
+            <tr><td>Retirada local</td><td>Negócio regional</td><td>Baixo custo</td><td>Horário e confirmação claros</td></tr>
+            <tr><td>Entrega própria</td><td>Raio curto e controle direto</td><td>Experiência personalizada</td><td>Custo de tempo e rota</td></tr>
+            <tr><td>Correios</td><td>Alcance nacional</td><td>Serviços conhecidos e rastreio</td><td>Prazo, contrato e embalagem</td></tr>
+            <tr><td>Transportadora</td><td>Volume, peso ou prazo específico</td><td>Condições comerciais melhores</td><td>Integração e cotação</td></tr>
+            <tr><td>Fulfillment</td><td>Operação com escala</td><td>Armazenagem e envio terceirizados</td><td>Custo fixo e controle de estoque</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="footer"><span>Entrega boa protege margem e reputação</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Entrega digital</div>
+          <h2>Produto digital precisa de acesso seguro e experiência clara após o pagamento.</h2>
+        </div>
+        <span class="badge">Digital</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Arquivo</strong><p>PDF, template, arte ou planilha enviados por link ou e-mail.</p></div>
+        <div class="card"><strong>Acesso</strong><p>Curso, área de membros, comunidade ou dashboard privado.</p></div>
+        <div class="card"><strong>Licença</strong><p>Chave, cupom, permissão ou limite de uso.</p></div>
+        <div class="card"><strong>Suporte</strong><p>Instruções de acesso, recuperação e contato em caso de erro.</p></div>
+      </div>
+      <footer class="footer"><span>No digital, a entrega é invisível; por isso precisa ser muito bem explicada</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Estratégia de frete</div>
+          <h2>Frete grátis nunca é grátis para a loja. Alguém paga a conta.</h2>
+        </div>
+        <span class="badge">Margem</span>
+      </header>
+      <div class="content matrix">
+        <div class="formula-box">Preço do produto
++ custo de embalagem
++ custo de frete
++ taxa de pagamento
++ margem desejada
+= oferta sustentável</div>
+        <table class="table">
+          <thead><tr><th>Estratégia</th><th>Como funciona</th><th>Risco</th></tr></thead>
+          <tbody>
+            <tr><td>Frete calculado</td><td>Cliente paga conforme CEP, peso e prazo</td><td>Pode assustar no checkout</td></tr>
+            <tr><td>Frete fixo</td><td>Valor único por região ou faixa</td><td>Alguns pedidos podem dar prejuízo</td></tr>
+            <tr><td>Frete grátis</td><td>Custo embutido no preço ou margem</td><td>Se mal calculado, destrói lucro</td></tr>
+            <tr><td>Grátis acima de valor</td><td>Incentiva ticket médio maior</td><td>Precisa proteger margem</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="footer"><span>Frete é argumento comercial e cálculo financeiro ao mesmo tempo</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Rastreamento</div>
+          <h2>Rastreamento reduz ansiedade e diminui atendimento repetitivo.</h2>
+        </div>
+        <span class="badge">Pós-compra</span>
+      </header>
+      <div class="content">
+        <table class="table">
+          <thead><tr><th>Status de entrega</th><th>Significado</th><th>Ação da loja</th><th>Mensagem</th></tr></thead>
+          <tbody>
+            <tr><td>Pedido recebido</td><td>Pagamento confirmado</td><td>Separar produto</td><td>Seu pedido foi confirmado.</td></tr>
+            <tr><td>Em separação</td><td>Produto sendo preparado</td><td>Conferir item e embalagem</td><td>Estamos preparando seu pedido.</td></tr>
+            <tr><td>Enviado</td><td>Objeto postado ou coletado</td><td>Enviar rastreio</td><td>Seu pedido já foi enviado.</td></tr>
+            <tr><td>Em rota</td><td>Transportadora em deslocamento</td><td>Acompanhar prazo</td><td>A entrega está a caminho.</td></tr>
+            <tr><td>Entregue</td><td>Cliente recebeu</td><td>Pedir avaliação</td><td>Chegou tudo certo?</td></tr>
+            <tr><td>Problema</td><td>Atraso, devolução ou falha</td><td>Atuar antes da reclamação</td><td>Estamos acompanhando a ocorrência.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="footer"><span>O cliente não quer só comprar; quer saber o que está acontecendo</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Troca e logística reversa</div>
+          <h2>Pós-venda bem explicado aumenta confiança antes da compra.</h2>
+        </div>
+        <span class="badge">Confiança</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Motivo</strong><p>Troca por tamanho, arrependimento, defeito, avaria ou produto errado.</p></div>
+        <div class="card"><strong>Prazo</strong><p>Quanto tempo o cliente tem para solicitar troca ou devolução.</p></div>
+        <div class="card"><strong>Processo</strong><p>Como pedir, onde enviar, quem paga o frete e como acompanhar.</p></div>
+        <div class="card"><strong>Registro</strong><p>Pedido, motivo, status, comprovante e solução final.</p></div>
+      </div>
+      <footer class="footer"><span>Política clara evita conflito e melhora reputação</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Arquitetura final no Lovable</div>
+          <h2>A loja precisa mostrar o caminho completo do pedido.</h2>
+        </div>
+        <span class="badge">Sistema</span>
+      </header>
+      <div class="content visual-flow">
+        <div class="node"><span class="keyword">produto</span><svg class="sketch" viewBox="0 0 140 90"><rect class="fill-blue" x="28" y="24" width="84" height="50" rx="8"/><path d="M44 42h46M44 56h28"/></svg><strong>Produto</strong><p>Oferta clara, preço, variação e estoque.</p></div>
+        <div class="node"><span class="keyword">pedido</span><svg class="sketch" viewBox="0 0 140 90"><path class="fill-gold" d="M36 28h68l-8 34H46z"/><path d="M30 20h16l8 42"/></svg><strong>Resumo</strong><p>Valor, frete, prazo e dados essenciais.</p></div>
+        <div class="node"><span class="keyword">pagamento</span><svg class="sketch" viewBox="0 0 140 90"><rect class="fill-green" x="34" y="28" width="72" height="44" rx="8"/><path d="M48 46h44M48 58h28"/></svg><strong>Checkout</strong><p>Link, QR ou plataforma externa segura.</p></div>
+        <div class="node"><span class="keyword">entrega</span><svg class="sketch" viewBox="0 0 140 90"><path class="fill-red" d="M26 38h84v30H26z"/><path d="M44 38V26h48v12M48 54h38"/></svg><strong>Logística</strong><p>Modelo de entrega, rastreio e prazo.</p></div>
+        <div class="node"><span class="keyword">pós</span><svg class="sketch" viewBox="0 0 140 90"><path class="fill-green" d="M42 30a30 30 0 1 1-6 34"/><path d="M36 64H20V48"/></svg><strong>Pós-venda</strong><p>Avaliação, suporte, troca e recompra.</p></div>
+      </div>
+      <footer class="footer"><span>O projeto final mostra a jornada inteira, não só a vitrine</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Prompt Engineering</div>
+          <h2>O prompt final precisa pedir fluxo, regras e estados, não apenas uma tela bonita.</h2>
+        </div>
+        <span class="badge">Prompt Mestre</span>
+      </header>
+      <div class="content matrix">
+        <div class="card">
+          <strong>Componentes do prompt</strong>
+          <ol>
+            <li>Contexto da loja.</li>
+            <li>Meios de pagamento escolhidos.</li>
+            <li>Regras de segurança.</li>
+            <li>Modelo de entrega.</li>
+            <li>Status e mensagens.</li>
+            <li>Critérios de qualidade.</li>
+          </ol>
+        </div>
+        <div class="prompt-card">Atue como especialista em e-commerce, checkout seguro e logística.
+Minha loja vende [produto] para [público].
+Crie no Lovable um fluxo final de pedido com resumo, escolha de pagamento, QR Code Pix ilustrativo, botão de link de pagamento externo, status de pagamento, cálculo/seleção de entrega, rastreamento e pós-venda.
+Não colete dados reais de cartão no app.
+Explique visualmente que o pagamento acontece em plataforma segura.
+Inclua mensagens para pagamento pendente, aprovado, recusado, expirado e reembolsado.
+Inclua status de entrega e política de troca.
+Critérios: seguro, claro, responsivo, fácil de apresentar e coerente com a identidade da loja.</div>
+      </div>
+      <footer class="footer"><span>O prompt vira especificação de produto</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Atividade final</div>
+          <h2>Adicionar ao projeto Lovable o módulo de pagamento, entrega e pós-venda.</h2>
+        </div>
+        <span class="badge">Individual</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>1. Pagamento</strong><p>Escolher link, QR, checkout ou integração simulada e justificar.</p></div>
+        <div class="card"><strong>2. Segurança</strong><p>Explicar onde ocorre o pagamento e quais dados não serão coletados.</p></div>
+        <div class="card"><strong>3. Entrega</strong><p>Definir modelo físico, digital, serviço ou assinatura.</p></div>
+        <div class="card"><strong>4. Pós-venda</strong><p>Criar status, rastreio, troca, suporte e mensagem de avaliação.</p></div>
+      </div>
+      <footer class="footer"><span>A entrega final precisa mostrar a jornada completa do pedido</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+
+    <section class="slide">
+      <header>
+        <div>
+          <div class="eyebrow">Fechamento</div>
+          <h2>Uma loja madura não termina no botão comprar.</h2>
+        </div>
+        <span class="badge">Síntese</span>
+      </header>
+      <div class="content grid four">
+        <div class="card"><strong>Antes</strong><p>Produto, oferta, página e marketplace.</p></div>
+        <div class="card"><strong>Agora</strong><p>Pagamento seguro, status e confirmação.</p></div>
+        <div class="card"><strong>Entrega</strong><p>Frete, acesso digital, rastreio, troca e prazo.</p></div>
+        <div class="card"><strong>Evolução</strong><p>Projeto Lovable como simulação completa de operação.</p></div>
+      </div>
+      <footer class="footer"><span>Vender online é prometer, receber, entregar e cuidar do cliente</span><div class="progress"><span></span></div><span class="count"></span></footer>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Controles dos slides">
+    <button id="prev" title="Slide anterior">&larr;</button>
+    <button id="next" title="Próximo slide">&rarr;</button>
+  </nav>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    let current = 0;
+
+    function showSlide(index) {
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      document.querySelectorAll(".count").forEach(item => item.textContent = `${current + 1}/${slides.length}`);
+      document.querySelectorAll(".progress span").forEach(bar => {
+        bar.style.width = `${((current + 1) / slides.length) * 100}%`;
+      });
+      location.hash = `slide-${current + 1}`;
+    }
+
+    document.querySelector("#next").addEventListener("click", () => showSlide(current + 1));
+    document.querySelector("#prev").addEventListener("click", () => showSlide(current - 1));
+
+    window.addEventListener("keydown", event => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) showSlide(current + 1);
+      if (["ArrowLeft", "PageUp"].includes(event.key)) showSlide(current - 1);
+      if (event.key.toLowerCase() === "p") window.print();
+    });
+
+    const hashNumber = Number((location.hash.match(/slide-(\d+)/) || [])[1]);
+    showSlide(hashNumber ? hashNumber - 1 : 0);
+  </script>
+</body>
+</html>
