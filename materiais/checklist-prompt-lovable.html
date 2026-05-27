@@ -11,51 +11,22 @@
       font-family: Arial, Helvetica, sans-serif;
       color: #17202a;
       background: #ffffff;
-      font-size: 9.8pt;
-      line-height: 1.22;
+      font-size: 10pt;
+      line-height: 1.25;
     }
     h1, h2, h3, p { margin: 0; }
-    h1 { font-size: 21pt; line-height: 1; margin-bottom: 4px; }
+    h1 { font-size: 20pt; line-height: 1; margin-bottom: 4px; }
     h2 { font-size: 13pt; margin: 9px 0 6px; border-bottom: 2px solid #17202a; padding-bottom: 3px; }
     h3 { font-size: 10.5pt; margin: 5px 0 3px; }
-    .sub { color: #4b5563; font-size: 9.2pt; margin-bottom: 7px; }
-    .top {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7px;
-      margin-bottom: 7px;
-    }
-    .field {
-      border-bottom: 1px solid #6b7280;
-      min-height: 18px;
-      padding-top: 2px;
-      color: #111827;
-    }
+    .sub { color: #4b5563; font-size: 9.3pt; margin-bottom: 7px; }
+    .top { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 7px; }
+    .field { border-bottom: 1px solid #6b7280; min-height: 18px; padding-top: 2px; color: #111827; }
     .label { font-weight: 700; color: #111827; }
-    .box {
-      border: 1.5px solid #17202a;
-      border-radius: 6px;
-      padding: 7px;
-      margin-bottom: 7px;
-      break-inside: avoid;
-    }
+    .box { border: 1.5px solid #17202a; border-radius: 6px; padding: 7px; margin-bottom: 7px; break-inside: avoid; }
     .soft { background: #f6f3ea; }
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-    }
-    .option {
-      min-height: 94px;
-      border: 1px solid #c5cbd3;
-      border-radius: 6px;
-      padding: 6px;
-    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .option { min-height: 94px; border: 1px solid #c5cbd3; border-radius: 6px; padding: 6px; background: #fffdf8; }
     .check { display: inline-block; width: 13px; height: 13px; border: 1.5px solid #17202a; margin-right: 5px; vertical-align: -2px; }
     ul { margin: 5px 0 0 0; padding-left: 0; list-style: none; }
     li { margin: 2px 0; }
@@ -65,23 +36,43 @@
     td { min-height: 18px; }
     .line { border-bottom: 1px solid #8c95a3; height: 18px; }
     .lines { display: grid; gap: 5px; margin-top: 5px; }
-    .tiny { font-size: 9.3pt; color: #4b5563; }
+    .tiny { font-size: 9pt; color: #4b5563; }
+    .step {
+      display: inline-block;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: #17202a;
+      color: #fff;
+      text-align: center;
+      line-height: 22px;
+      font-weight: 700;
+      margin-right: 6px;
+      font-size: 9pt;
+    }
+    .hint {
+      border-left: 5px solid #0f6b5f;
+      background: #eef7f4;
+      padding: 6px 8px;
+      margin: 6px 0;
+      font-size: 9pt;
+    }
     .prompt {
       border: 1.5px solid #17202a;
       border-radius: 6px;
-      padding: 7px;
+      padding: 8px;
       background: #f8fafc;
       font-family: "Courier New", Consolas, monospace;
-      font-size: 7.8pt;
-      line-height: 1.13;
+      font-size: 8.5pt;
+      line-height: 1.2;
       white-space: pre-wrap;
     }
     .page-break { page-break-before: always; }
   </style>
 </head>
 <body>
-  <h1>Checklist de Pesquisa + Prompt Final para Lovable</h1>
-  <p class="sub">Atividade individual para recuperar o conteúdo de e-commerce: ideia, pesquisa, oferta, marketplace, pagamento Pix, entrega e pós-venda.</p>
+  <h1>Checklist + Prompt Curto para Lovable</h1>
+  <p class="sub">Atividade individual para recuperar o conteúdo de e-commerce: ideia, pesquisa, oferta, pagamento Pix, entrega e pós-venda.</p>
 
   <div class="top">
     <div><span class="label">Nome:</span><div class="field"></div></div>
@@ -89,7 +80,7 @@
   </div>
 
   <div class="box soft">
-    <h2>1. Escolha 1 tipo de site</h2>
+    <h2><span class="step">1</span>Escolha 1 tipo de site</h2>
     <div class="grid-3">
       <div class="option">
         <h3><span class="check"></span>Opção A: Loja de Produto Físico</h3>
@@ -122,7 +113,7 @@
   </div>
 
   <div class="box">
-    <h2>2. Checklist de Pesquisa</h2>
+    <h2><span class="step">2</span>Checklist de Pesquisa</h2>
     <table>
       <tr><th>Item</th><th>Resposta do aluno</th><th>OK</th></tr>
       <tr><td>O que vou vender?</td><td></td><td><span class="check"></span></td></tr>
@@ -135,7 +126,7 @@
   </div>
 
   <div class="box">
-    <h2>3. Oferta e Conteúdo da Página</h2>
+    <h2><span class="step">3</span>Oferta e Conteúdo da Página</h2>
     <div class="grid-2">
       <div>
         <h3>Nome da marca ou projeto</h3>
@@ -149,18 +140,17 @@
     <table>
       <tr><th>Seção do site</th><th>O que precisa aparecer</th><th>OK</th></tr>
       <tr><td>Home</td><td>Produto, público, benefício e botão principal.</td><td><span class="check"></span></td></tr>
-      <tr><td>Catálogo ou oferta</td><td>Produtos, preços, variações ou pacotes.</td><td><span class="check"></span></td></tr>
+      <tr><td>Oferta</td><td>Produtos, preços, variações, pacote ou serviço.</td><td><span class="check"></span></td></tr>
       <tr><td>Confiança</td><td>FAQ, contato, garantia, troca ou suporte.</td><td><span class="check"></span></td></tr>
-      <tr><td>Marketplace</td><td>Título pesquisável, descrição, fotos e objeções respondidas.</td><td><span class="check"></span></td></tr>
-      <tr><td>Pagamento</td><td>Pix/QR Code, Pix Copia e Cola e orientação de comprovante.</td><td><span class="check"></span></td></tr>
-      <tr><td>Entrega/Pós-venda</td><td>Prazo, rastreio ou acesso, suporte e avaliação.</td><td><span class="check"></span></td></tr>
+      <tr><td>Pagamento</td><td>Pix/QR Code, Pix Copia e Cola e comprovante.</td><td><span class="check"></span></td></tr>
+      <tr><td>Entrega/Pós-venda</td><td>Prazo, acesso, suporte, avaliação ou recompra.</td><td><span class="check"></span></td></tr>
     </table>
   </div>
 
   <div class="page-break"></div>
 
   <div class="box">
-    <h2>4. Pagamento, Entrega e Pós-venda</h2>
+    <h2><span class="step">4</span>Pagamento, Entrega e Pós-venda</h2>
     <table>
       <tr><th>Parte</th><th>Definição do aluno</th></tr>
       <tr><td>Chave Pix ou Pix ilustrativo</td><td></td></tr>
@@ -173,49 +163,27 @@
   </div>
 
   <div class="box soft">
-    <h2>5. Prompt Final para Lovable</h2>
-    <p class="tiny">Complete os campos entre colchetes antes de colar no Lovable.</p>
-    <div class="prompt">Atue como especialista em e-commerce e UX de vendas.
+    <h2><span class="step">5</span>Prompt Final para Lovable</h2>
+    <div class="hint">Use as respostas dos passos 1 a 4 para completar os campos. Depois cole no Lovable.</div>
+    <div class="prompt">Crie um site de e-commerce para [NOME DA MARCA].
 
-Crie um site para [NOME DA MARCA].
-Tipo: [produto físico / produto digital / serviço com agendamento].
-
-O site vende [PRODUTO OU SERVIÇO] para [PÚBLICO-ALVO].
-O principal problema ou desejo do cliente é [PROBLEMA OU DESEJO].
-O principal benefício é [BENEFÍCIO].
-
-Estilo visual: moderno, claro, organizado e adequado para apresentação em sala.
-Cores desejadas: [CORES].
-Tom de voz: simples, confiável e direto.
+Tipo de site: [produto físico / produto digital / serviço com agendamento].
+Produto ou serviço: [O QUE VOU VENDER].
+Público-alvo: [PARA QUEM VOU VENDER].
+Benefício principal: [PRINCIPAL BENEFÍCIO].
+Diferencial: [O QUE MINHA IDEIA TEM DE DIFERENTE].
 
 O site deve ter:
-1. Home com título, explicação curta e botão principal.
-2. Oferta com produtos, pacotes ou serviço.
-3. Benefícios e prova de confiança com FAQ, contato, garantia, troca ou suporte.
-4. Seção estilo marketplace com título pesquisável, descrição clara, fotos necessárias e dúvidas respondidas.
-5. Central de pedido sem backend com resumo, Pix QR Code ilustrativo, Pix Copia e Cola e instrução para enviar comprovante pelo WhatsApp.
-6. Aviso de que o status de pagamento não será automático.
-7. Status apenas como teoria: aguardando Pix, comprovante enviado, pagamento confirmado e problema no pagamento.
-8. Entrega ou acesso: [ENTREGA, RETIRADA, LINK DIGITAL OU AGENDAMENTO].
-9. Pós-venda com suporte, avaliação e recompra.
+- Home com título, explicação curta e botão principal.
+- Seção de oferta com preço, produtos, pacotes ou serviço.
+- Benefícios, FAQ, contato e prova de confiança.
+- Área de pagamento sem backend com Pix QR Code ilustrativo, Pix Copia e Cola e orientação para enviar comprovante pelo WhatsApp.
+- Entrega ou acesso: [COMO O PRODUTO SERÁ ENTREGUE].
+- Pós-venda com suporte, avaliação e recompra.
 
-Não crie backend, banco de dados, login ou automação real de pagamento.
-Não colete dados reais de cartão no app.
-Mantenha o site responsivo para celular.
-Crie textos prontos para apresentação em sala.</div>
-  </div>
-
-  <div class="box">
-    <h2>6. Correção Rápida do Professor</h2>
-    <table>
-      <tr><th>Critério</th><th>OK</th><th>Observação</th></tr>
-      <tr><td>Escolheu uma das 3 possibilidades.</td><td><span class="check"></span></td><td></td></tr>
-      <tr><td>Definiu produto, público e benefício.</td><td><span class="check"></span></td><td></td></tr>
-      <tr><td>Fez pesquisa básica de concorrentes.</td><td><span class="check"></span></td><td></td></tr>
-      <tr><td>Incluiu pagamento Pix/QR sem backend.</td><td><span class="check"></span></td><td></td></tr>
-      <tr><td>Explicou entrega ou acesso.</td><td><span class="check"></span></td><td></td></tr>
-      <tr><td>Prompt final está completo.</td><td><span class="check"></span></td><td></td></tr>
-    </table>
+Não crie login, banco de dados, backend ou automação real de pagamento.
+Não colete cartão.
+Mantenha o site moderno, claro, responsivo e fácil de apresentar em sala.</div>
   </div>
 </body>
 </html>
