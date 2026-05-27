@@ -1,38 +1,31 @@
 # Prompts Lovable: Pagamento e Entrega
 
-## Prompt Mestre: Central de Pedido sem Backend
+## Prompt Mestre: Pedido via Pix sem Backend
 
 ```text
-Atue como especialista em e-commerce.
+No projeto atual, crie uma seção chamada "Pedido via Pix".
 
-Minha loja vende [produto] para [público].
-O produto é [físico/digital/serviço/assinatura].
-
-Crie no Lovable uma central de pedido sem backend com:
+Ela deve ter:
 - resumo do pedido;
+- valor total;
 - QR Code Pix ilustrativo;
-- campo visual de Pix Copia e Cola;
-- chave Pix da loja;
-- instrução para o cliente conferir valor e identificação do pedido;
+- campo Pix Copia e Cola;
+- instrução para conferir o valor antes de pagar;
 - botão de WhatsApp para enviar comprovante;
-- aviso dizendo que a confirmação será manual nesta versão;
-- quadro explicativo de status teóricos: aguardando Pix, comprovante enviado, pagamento confirmado, problema no pagamento e reembolso;
-- entrega ou acesso digital;
-- rastreamento;
-- suporte, troca ou devolução;
-- pedido de avaliação no pós-venda.
+- aviso: "Confirmação manual pelo vendedor";
+- entrega ou acesso após confirmação;
+- suporte, troca ou pós-venda.
 
-Não colete dados reais de cartão no app.
-Não crie backend, banco de dados, login ou automação de status.
-Mantenha a identidade visual da loja.
-O resultado deve ser claro, responsivo e fácil de apresentar em sala.
+Não crie backend, login, banco de dados, checkout real ou automação.
+Não peça dados de cartão.
+Mantenha o visual da loja atual e deixe tudo simples para celular.
 ```
 
 ## Prompt curto para melhorar Pix
 
 ```text
 Melhore o fluxo de Pix da minha loja sem backend.
-Inclua resumo do pedido, QR Code Pix ilustrativo, Pix Copia e Cola, chave Pix, instrução para enviar comprovante pelo WhatsApp e aviso de confirmação manual.
+Inclua resumo do pedido, valor total, QR Code Pix ilustrativo, Pix Copia e Cola, instrução para conferir o valor e botão de WhatsApp para enviar comprovante.
 ```
 
 ## Prompt curto para melhorar entrega
